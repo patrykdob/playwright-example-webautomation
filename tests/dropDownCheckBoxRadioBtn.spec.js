@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test } = require('@playwright/test');
 const DropdownCheckBoxRadioBtn = require('../pom/DropdownCheckBoxRadioBtn.page');
 
 test.beforeEach(async ({page}) => {

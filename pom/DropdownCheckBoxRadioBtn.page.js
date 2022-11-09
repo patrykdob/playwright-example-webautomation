@@ -1,21 +1,18 @@
 const BasePage = require('./Base.page');
 const { expect } = require('@playwright/test');
 
-
 class DropCheckRadioBtnPage extends BasePage {
-
-    dropDownMenuNo = 0;    
 
     constructor(page) {
         super(page);
 
         // locators
-        this.dropdownMenus = page.locator(`#dropdowm-menu-${this.dropDownMenuNo}`);
+        this.dropdownMenus = page.locator('.dropdown-menu-lists'); 
         this.checkbox = page.locator('#checkboxes');
         this.radioButton = page.locator('#radio-buttons');
 
     }
-
+    
     async navigate() {
         await super.navigation('Dropdown-Checkboxes-RadioButtons/index.html');
     }
@@ -36,9 +33,9 @@ class DropCheckRadioBtnPage extends BasePage {
     }
 
     async dropdownChooseValue(dropDownMenuOption, dropDownValue) {
-        this.dropDownMenuNumber = dropDownMenuOption;
-        await this.dropdownMenus.selectOption({value: dropDownValue});
-        //await this.dropdownMenus.toHaveText(dropDownValue);
+        const dropdown = this.page.locator(`#dropdowm-menu-${dropDownMenuOption}`);
+        await dropdown.selectOption(dropDownValue);
+        await expect(this.page.locator(`#dropdowm-menu-${dropDownMenuOption}`)).toHaveValue(dropDownValue);
     }
 }
 module.exports = DropCheckRadioBtnPage;
